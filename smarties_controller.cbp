@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="smarties_controller" />
+		<Option makefile="makefile" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="avrgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/smarties_controller" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="avrgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/smarties_controller" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="5" />
+				<Option compiler="avrgcc" />
+				<Compiler>
+					<Add option="-Os" />
+				</Compiler>
+			</Target>
+			<Target title="all">
+				<Option output="smarties_controller" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option type="5" />
+				<Option compiler="avrgcc" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-mmcu=atmega32" />
+			<Add option="-Wall" />
+			<Add option="-DF_CPU=12000000UL" />
+		</Compiler>
+		<Linker>
+			<Add option="-mmcu=atmega32" />
+			<Add option="-Wl,-Map=$(TARGET_OUTPUT_FILE).map,--cref" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="avr-size $(TARGET_OUTPUT_FILE)" />
+			<Add after="avr-objcopy -O ihex -R .eeprom -R .eesafe $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_FILE).hex" />
+			<Add after="avr-objcopy --no-change-warnings -j .eeprom --change-section-lma .eeprom=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_FILE).eep.hex" />
+			<Add after="avr-objdump -h -S $(TARGET_OUTPUT_FILE) &gt; $(TARGET_OUTPUT_FILE).lss" />
+		</ExtraCommands>
+		<Unit filename="ADJD-S311.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="ADJD_S311.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TLC59116.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TLC59116.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TMC222.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TMC222.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="colour_sensor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="colour_sensor.h" />
+		<Unit filename="debug.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="fsm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fsm.h" />
+		<Unit filename="includes.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="makefile" />
+		<Unit filename="motion_controll.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="motion_controll.h" />
+		<Unit filename="msg.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="msg.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="my_types" />
+		<Unit filename="smarties.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="smarties.h" />
+		<Unit filename="smarties_controller.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="smarties_controller.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="twi_lcd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="twi_lcd.h" />
+		<Unit filename="twi_master.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="twi_master.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="twi_slave.h" />
+		<Unit filename="uart.c">
+			<Option compilerVar="CC" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="uart.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="version.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="0" ask_to_increment="0" language="C" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

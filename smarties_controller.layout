@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="all" />
+	<File name="ADJD-S311.h" open="0" top="0" tabpos="5">
+		<Cursor position="1012" topLine="0" />
+	</File>
+	<File name="ADJD_S311.c" open="0" top="0" tabpos="4">
+		<Cursor position="1745" topLine="0" />
+	</File>
+	<File name="TLC59116.c" open="0" top="0" tabpos="6">
+		<Cursor position="2146" topLine="58" />
+	</File>
+	<File name="TLC59116.h" open="0" top="0" tabpos="7">
+		<Cursor position="1343" topLine="0" />
+	</File>
+	<File name="TMC222.c" open="0" top="0" tabpos="6">
+		<Cursor position="10946" topLine="286" />
+	</File>
+	<File name="TMC222.h" open="0" top="0" tabpos="7">
+		<Cursor position="1308" topLine="28" />
+	</File>
+	<File name="colour_sensor.c" open="0" top="0" tabpos="5">
+		<Cursor position="6853" topLine="123" />
+	</File>
+	<File name="colour_sensor.h" open="0" top="0" tabpos="5">
+		<Cursor position="1705" topLine="66" />
+	</File>
+	<File name="debug.h" open="0" top="0" tabpos="0">
+		<Cursor position="71" topLine="0" />
+	</File>
+	<File name="fsm.c" open="1" top="0" tabpos="2">
+		<Cursor position="825" topLine="0" />
+	</File>
+	<File name="fsm.h" open="0" top="0" tabpos="4">
+		<Cursor position="1048" topLine="9" />
+	</File>
+	<File name="makefile" open="1" top="1" tabpos="7">
+		<Cursor position="1811" topLine="39" />
+	</File>
+	<File name="motion_controll.c" open="0" top="0" tabpos="2">
+		<Cursor position="11847" topLine="310" />
+	</File>
+	<File name="motion_controll.h" open="0" top="0" tabpos="4">
+		<Cursor position="4401" topLine="79" />
+	</File>
+	<File name="msg.c" open="0" top="0" tabpos="9">
+		<Cursor position="4615" topLine="143" />
+	</File>
+	<File name="msg.h" open="0" top="0" tabpos="8">
+		<Cursor position="761" topLine="9" />
+	</File>
+	<File name="my_types" open="0" top="0" tabpos="1">
+		<Cursor position="1" topLine="0" />
+	</File>
+	<File name="smarties.c" open="0" top="0" tabpos="3">
+		<Cursor position="1048" topLine="11" />
+	</File>
+	<File name="smarties.h" open="0" top="0" tabpos="7">
+		<Cursor position="2036" topLine="42" />
+	</File>
+	<File name="smarties_controller.c" open="1" top="0" tabpos="3">
+		<Cursor position="1173" topLine="0" />
+	</File>
+	<File name="twi_lcd.c" open="1" top="0" tabpos="1">
+		<Cursor position="6655" topLine="197" />
+	</File>
+	<File name="twi_lcd.h" open="1" top="0" tabpos="5">
+		<Cursor position="10720" topLine="182" />
+	</File>
+	<File name="twi_master.c" open="1" top="0" tabpos="6">
+		<Cursor position="12835" topLine="151" />
+	</File>
+	<File name="twi_master.h" open="1" top="0" tabpos="4">
+		<Cursor position="1762" topLine="51" />
+	</File>
+	<File name="twi_slave.h" open="0" top="0" tabpos="0">
+		<Cursor position="572" topLine="0" />
+	</File>
+	<File name="uart.c" open="0" top="0" tabpos="7">
+		<Cursor position="1464" topLine="37" />
+	</File>
+	<File name="uart.h" open="0" top="0" tabpos="8">
+		<Cursor position="8030" topLine="63" />
+	</File>
+	<File name="version.h" open="0" top="0" tabpos="0">
+		<Cursor position="787" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
