@@ -3,7 +3,7 @@
  *
  *       Filename:  ADJD_S311.c
  *
- *    Description:  Library for using a ADJD_S311.c Colour sensor together with an
+ *    Description:  Library for using a ADJD_S311.c Color sensor together with an
  *                  AVR processor. Its controlled via TWI, using my TWI_Master.c/.h
  *
  *
@@ -34,7 +34,7 @@
 
    Return value:    error
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 void ADJD_S311_Data_Get(ADJD_S311_Data_t *SensorData)
@@ -69,7 +69,7 @@ void ADJD_S311_Data_Get(ADJD_S311_Data_t *SensorData)
 
    Return value:    error
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 void
@@ -104,7 +104,7 @@ ADJD_S311_Offset_Get(ADJD_S311_Offset_t *SensorOffset)
 
    Return value:    none
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 
@@ -130,7 +130,7 @@ void ADJD_S311_Param_Set(ADJD_S311_Param_t *SensorParam)
 
    Return value:    none
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 
@@ -148,7 +148,7 @@ ADJD_S311_Sensor_Start(void)
 
    Return value:    none
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 
@@ -167,7 +167,7 @@ ADJD_S311_Offset_Clear(void)
 
    Return value:    none
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 
@@ -191,7 +191,7 @@ ADJD_S311_Reg_Set(uint8_t reg,uint8_t value)
 
    Return value:    value of the register
 
-   Purpose: Initialise the Colour driver.
+   Purpose: Initialise the Color driver.
 
 ******************************************************************************/
 

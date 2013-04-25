@@ -51,7 +51,7 @@
 #define MC_CONVEYOR_SLOTS               10
 
 
-extern enum COLOUR mc_smartie_table[];
+extern enum COLOR mc_smartie_table[];
 
 
 
@@ -73,11 +73,11 @@ MC_Catcher_Init(void);
 /*************************************************************************
 Function: MC_Catcher_Set_Position()
 Purpose:
-Input:    enum COLOUR
+Input:    enum COLOR
 Returns:  none
 **************************************************************************/
 extern void
-MC_Catcher_Set_Position(enum COLOUR colour);
+MC_Catcher_Set_Position(enum COLOR color);
 
 /*************************************************************************
 Makro: MC_Catcher_Off_Reference()
@@ -122,7 +122,7 @@ Returns:  1 when the light barrier is at reference mark, 0 else
 Function: MC_Catcher_Set_Position()
 Purpose:  used to move the conveyor back or forward (in steps of 18°)
 Input:    none
-Returns:  enum COLOUR
+Returns:  enum COLOR
 **************************************************************************/
 extern void
 MC_Conveyor_Set_Position(int8_t step);

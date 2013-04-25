@@ -3,7 +3,7 @@
  *
  *       Filename:  smarites.h
  *
- *    Description:  Defines for the datatypes rgbw_t and the enum COLOUR
+ *    Description:  Defines for the datatypes rgbw_t and the enum COLOR
  *
  *        Version:  1.0
  *        Created:  24.08.2010 22:37:16
@@ -30,9 +30,9 @@
 #include "uart.h"
 #include "TLC59116.h"
 #include "ADJD_S311.h"
-#include "colour_sensor.h"
+#include "color_sensor.h"
 
-enum COLOUR {Unknown=0,Red,Orange,Yellow,Green,Blue,Violett,Pink,Brown,COLOUR_MAX};
+enum COLOR {Unknown=0,Red,Orange,Yellow,Green,Blue,Violett,Pink,Brown,COLOR_MAX};
 typedef struct rgbw_s
 {
     uint16_t red;
@@ -41,39 +41,39 @@ typedef struct rgbw_s
     uint16_t clear;
 } rgbw_t;
 
-extern rgbw_t sm_colour_table[COLOUR_MAX];
-extern rgbw_t sm_colour_avarage_sum;
+extern rgbw_t sm_color_table[COLOR_MAX];
+extern rgbw_t sm_color_avarage_sum;
 
-extern uint8_t //enum COLOUR
-SM_Colour_Attach (ADJD_S311_Data_t * p_smartie_colour);
+extern uint8_t //enum COLOR
+SM_Color_Attach (ADJD_S311_Data_t * p_smartie_color);
 
-/********** SM_Colour_Correct *********************************************
-Function:   SM_Colour_Correct()
-Purpose:    Call this function to Correct the colour_table ....
-            The entry of the colour_table is replaced by:
-            7/8 old entry +1/7 actual value of the *p_smartie_colour
+/********** SM_Color_Correct *********************************************
+Function:   SM_Color_Correct()
+Purpose:    Call this function to Correct the color_table ....
+            The entry of the color_table is replaced by:
+            7/8 old entry +1/7 actual value of the *p_smartie_color
 Input:      pointer to Sensor_Data_t
-Returns:    COLOUR
+Returns:    COLOR
 **************************************************************************/
-extern void //enum COLOUR
-SM_Colour_Correct(ADJD_S311_Data_t* p_smartie_colour,enum COLOUR colour);
-/********** SM_Colours_Store *********************************************
-Function:   SM_Colours_Store()
-Purpose:    Call this function to store the actual colour table to the EEPROM
+extern void //enum COLOR
+SM_Color_Correct(ADJD_S311_Data_t* p_smartie_color,enum COLOR color);
+/********** SM_Colors_Store *********************************************
+Function:   SM_Colors_Store()
+Purpose:    Call this function to store the actual color table to the EEPROM
 Input:      pointer to Sensor_Data_t
-Returns:    COLOUR
+Returns:    COLOR
 **************************************************************************/
-extern void //enum COLOUR
-SM_Colours_Store(void);
+extern void //enum COLOR
+SM_Colors_Store(void);
 
-/********** SM_Colours_Restore *********************************************
-Function:   SM_Colours_Restore()
-Purpose:    Call this function to store the actual colour table to the EEPROM
+/********** SM_Colors_Restore *********************************************
+Function:   SM_Colors_Restore()
+Purpose:    Call this function to store the actual color table to the EEPROM
 Input:      pointer to Sensor_Data_t
-Returns:    COLOUR
+Returns:    COLOR
 **************************************************************************/
-extern void //enum COLOUR
-SM_Colours_Restore(void);
+extern void //enum COLOR
+SM_Colors_Restore(void);
 
 
 #endif // _SMARTIES_H

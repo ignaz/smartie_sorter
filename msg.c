@@ -167,7 +167,7 @@ MSG_Parse_msg (uint8_t ** ptr)
                 }
                 break;
             case 'T':
-                uart_puts_P("\n\r LED set Colour:");
+                uart_puts_P("\n\r LED set Color:");
                 ui1 = (uint8_t)get_uint(ptr);
                 if(get_next_char(ptr)==';')
                     ui2 = (uint8_t)get_uint(ptr);

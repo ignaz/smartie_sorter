@@ -98,7 +98,7 @@ TMC222_Parameters_t conveyor_parameters=
 TMC222_Status_t mc_conveyor_status;
 int16_t mc_conveyor_position_cnt = 0;
 uint8_t mc_conveyor_position_index = 0;
-enum COLOUR mc_smartie_table[MC_CONVEYOR_SLOTS];
+enum COLOR mc_smartie_table[MC_CONVEYOR_SLOTS];
 
 //
 
@@ -161,11 +161,11 @@ MC_Catcher_Init(void)
 /*************************************************************************
 Function: MC_Catcher_Set_Position()
 Purpose:  initialize the
-Input:    enum COLOUR
+Input:    enum COLOR
 Returns:  none
 **************************************************************************/
 void
-MC_Catcher_Set_Position(enum COLOUR new_position)
+MC_Catcher_Set_Position(enum COLOR new_position)
 {
     int16_t position_difference_cnt;
 
@@ -199,10 +199,10 @@ MC_Catcher_Set_Position(enum COLOUR new_position)
 Function: MC_Catcher_Get_Position()
 Purpose:  initialize the
 Input:    none
-Returns:  enum COLOUR
+Returns:  enum COLOR
 **************************************************************************/
 /*    void
-MC_Catcher_Set_Position(enum COLOUR colour)
+MC_Catcher_Set_Position(enum COLOR color)
 {
 
 }*/
@@ -271,7 +271,7 @@ MC_Conveyor_Init(void)
 Function: MC_Catcher_Set_Position()
 Purpose:  used to move the conveyor back or forward (in steps of 18°)
 Input:    none
-Returns:  enum COLOUR
+Returns:  enum COLOR
 **************************************************************************/
 void
 MC_Conveyor_Set_Position(int8_t step)

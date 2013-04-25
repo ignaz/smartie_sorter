@@ -60,10 +60,10 @@ enum fsm_state { st_reset,
 
                  st_eject_smartie,
                  st_move_catcher,
-                 st_get_colour,
-                 st_attach_colour,
+                 st_get_color,
+                 st_attach_color,
 
-                 st_learn_colour,
+                 st_learn_color,
 
                  st_await_new_smartie,
                  st_move_conveyor,
@@ -114,7 +114,7 @@ static uint8_t cond_all_done(void)
     if(!(MC_Is_Smartie_Ejected()))return 0;
     if(!(MC_Is_Catcher_Idle()))return 0;
     if(fsm_pause) return 0;
-    // ??? if(!(SM_Is_Colour_Attached))
+    // ??? if(!(SM_Is_Color_Attached))
     return 1;
 }
 
@@ -147,9 +147,9 @@ const struct fsm_s PROGMEM fsm_table[]  =
     {st_enter_md_running,   st_eject_smartie,       cond_true},
 
     {st_eject_smartie,      st_move_catcher,        cond_true},
-    {st_move_catcher,       st_get_colour,          cond_md_run},
-    {st_get_colour,         st_attach_colour,       cond_true},
-    {st_attach_colour,      st_await_new_smartie,   cond_true},
+    {st_move_catcher,       st_get_color,          cond_md_run},
+    {st_get_color,         st_attach_color,       cond_true},
+    {st_attach_color,      st_await_new_smartie,   cond_true},
     {st_await_new_smartie,  st_move_conveyor,       cond_all_done},
     {st_move_conveyor,      st_eject_smartie,       cond_conveyor_idle},
 
@@ -157,10 +157,10 @@ const struct fsm_s PROGMEM fsm_table[]  =
     {st_enter_md_learning,  st_eject_smartie,       cond_true},
 
 
-    {st_move_catcher,       st_learn_colour,        cond_md_learn},
-    {st_learn_colour,       st_get_colour,          cond_md_learn},
-    {st_learn_colour,       st_leave_md_learning,   cond_md_not_learn},
-    {st_leave_md_learning,  st_get_colour,          cond_true},
+    {st_move_catcher,       st_learn_color,        cond_md_learn},
+    {st_learn_color,       st_get_color,          cond_md_learn},
+    {st_learn_color,       st_leave_md_learning,   cond_md_not_learn},
+    {st_leave_md_learning,  st_get_color,          cond_true},
 
 
 };
@@ -177,7 +177,7 @@ Returns:  none
 void
 FSM_Execute(enum fsm_state state)
 {
-    enum COLOUR temp_col=0;
+    enum COLOR temp_col=0;
     uint16_t temp_ui16 = 0;
     {
         switch (state)
@@ -208,7 +208,7 @@ FSM_Execute(enum fsm_state state)
         case st_enter_md_learning:
             break;
         case st_leave_md_learning:
-            SM_Colours_Store();
+            SM_Colors_Store();
         case st_eject_smartie:
 #if FSM_DEBUG
             uart_puts_P("\n C-Pos:");
@@ -220,27 +220,27 @@ FSM_Execute(enum fsm_state state)
             temp_col = (mc_smartie_table[((mc_conveyor_position_index+4)%MC_CONVEYOR_SLOTS)]);
             MC_Catcher_Set_Position(temp_col);
 #if FSM_DEBUG
-            uart_puts_P("\tColour C:");
+            uart_puts_P("\tColor C:");
             uart_put_uint16(temp_col);
 #endif
             break;
-        case st_learn_colour:
-            uart_puts_P("\n Is Colour:");
+        case st_learn_color:
+            uart_puts_P("\n Is Color:");
             uart_put_uint16(mc_smartie_table[(mc_conveyor_position_index+9)%10]);
             while((temp_ui16 = uart_getc())==UART_NO_DATA);
             temp_col = ((uint8_t)temp_ui16)-'0';
             mc_smartie_table[(mc_conveyor_position_index+9)%10]=temp_col;
-            SM_Colour_Correct(&cs_sensor_data,temp_col);
+            SM_Color_Correct(&cs_sensor_data,temp_col);
             break;
-        case st_get_colour:
-            CS_Colour_Average_Get(&cs_sensor_data);
+        case st_get_color:
+            CS_Color_Average_Get(&cs_sensor_data);
             break;
-        case st_attach_colour:
+        case st_attach_color:
 #if FSM_DEBUG
-            uart_puts_P("\tColour S:");
-            uart_put_uint16(mc_smartie_table[mc_conveyor_position_index] = SM_Colour_Attach(&cs_sensor_data));
+            uart_puts_P("\tColor S:");
+            uart_put_uint16(mc_smartie_table[mc_conveyor_position_index] = SM_Color_Attach(&cs_sensor_data));
 #else
-            mc_smartie_table[mc_conveyor_position_index] = SM_Colour_Attach(&cs_sensor_data);
+            mc_smartie_table[mc_conveyor_position_index] = SM_Color_Attach(&cs_sensor_data);
 #endif
             break;
         case st_await_new_smartie:

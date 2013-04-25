@@ -33,7 +33,7 @@
 #include "debug.h"
 #include "msg.h"
 
-#include "colour_sensor.h"
+#include "color_sensor.h"
 #include "motion_controll.h"
 
 
@@ -138,7 +138,7 @@ main ( void )
 
             case 'D':
                 uart_puts_P("\n\rData:\n");
-                CS_Colour_Average_Get(&cs_data);
+                CS_Color_Average_Get(&cs_data);
 
                 uart_put_bin8((uint8_t) (cs_data.Red>>8));
                 uart_put_bin8((uint8_t) cs_data.Red);
@@ -164,7 +164,7 @@ main ( void )
             case 'd':
                 uart_put_uint16(cs_cnt++);
                 uart_putc(';');
-                CS_Colour_Average_Get(&cs_data);
+                CS_Color_Average_Get(&cs_data);
                 uart_put_uint16(cs_data.Red);
                 uart_putc(';');
                 uart_put_uint16(cs_data.Green);

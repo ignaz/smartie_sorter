@@ -54,7 +54,7 @@ Statemachine three is just a small statemachine to controll the timing of the sm
 #include "debug.h"
 #include "msg.h"
 
-#include "colour_sensor.h"
+#include "color_sensor.h"
 #include "motion_controll.h"
 #include "fsm.h"
 
@@ -124,7 +124,7 @@ main ( void )
         switch(command)
         {
         case 'Y':
-            SM_Colours_Restore();
+            SM_Colors_Restore();
             break;
         case 'A':
             CS_Gain_Addapt(&cs_parameter,31);
@@ -134,7 +134,7 @@ main ( void )
             break;
         case 'D':
             uart_puts_P("\n\rData:\n");
-            CS_Colour_Average_Get(&cs_data);
+            CS_Color_Average_Get(&cs_data);
 
             uart_put_bin8((uint8_t) (cs_data.Red>>8));
             uart_put_bin8((uint8_t) cs_data.Red);
@@ -160,7 +160,7 @@ main ( void )
         case 'd':
             uart_put_uint16(cs_cnt++);
             uart_putc(';');
-            CS_Colour_Average_Get(&cs_data);
+            CS_Color_Average_Get(&cs_data);
             uart_put_uint16(cs_data.Red);
             uart_putc(';');
             uart_put_uint16(cs_data.Green);
@@ -254,7 +254,7 @@ main ( void )
             MC_Eject_Smartie();
             break;
         case 'h':
-            uart_putc('0'+ SM_Colour_Attach(&cs_data));
+            uart_putc('0'+ SM_Color_Attach(&cs_data));
             break;
         case 'p':
             fsm_pause ^= 0x01;

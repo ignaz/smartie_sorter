@@ -2,7 +2,7 @@
  * =====================================================================================
  *
  *       Filename:  collour_sensor.c
- *    Description:  this file contains function to handle the colour sensor_that was
+ *    Description:  this file contains function to handle the color sensor_that was
                     designed for the smarties sorter. This file is based on the two
                     moduls :
                     ADJD_S311 (the sensor library) and the

@@ -48,7 +48,7 @@ TARGET = smarties_controller
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c uart.c twi_master.c TMC222.c TLC59116.c ADJD_S311.c
-SRC += colour_sensor.c motion_controll.c smarties.c fsm.c twi_lcd.c
+SRC += color_sensor.c motion_controll.c smarties.c fsm.c twi_lcd.c
 SRC += twi_mmi.c
 
 # List Assembler source files here.

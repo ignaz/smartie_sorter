@@ -2,7 +2,7 @@
  * =====================================================================================
  *
  *       Filename:  collour_sensor.c
- *    Description:  this file contains function to handle the colour sensor_that was
+ *    Description:  this file contains function to handle the color sensor_that was
                     designed for the smarties sorter. This file is based on the two
                     moduls :
                     ADJD_S311 (the sensor library) and the
@@ -35,14 +35,14 @@
 #include "ADJD_S311.h"
 #include "debug.h"
 
-#include "colour_sensor.h"
+#include "color_sensor.h"
 
 #include "smarties.h"
 
 // #define CS_DEBUG 0 //debug in debug.h en-/disabled
 
 
-/******** Variables of the colour sensor **********************************
+/******** Variables of the color sensor **********************************
 **************************************************************************/
 
 CS_Sensor_LED_t     cs_sensor_led;
@@ -52,7 +52,7 @@ ADJD_S311_Param_t   cs_sensor_param;
 
 /******** CS_Init *********************************************************
 Function: CS_Init()
-Purpose:  initialize the colour sensor
+Purpose:  initialize the color sensor
 Input:    none
 Returns:  none
 **************************************************************************/
@@ -68,7 +68,7 @@ Purpose:    Call this function to addapt the sensor gain.
             It´s thougt to be called when only passive light reaches the
             sensor area, which should be placed over a referecne white!
             According to the ambient light, this function will decrease
-            the sensitivity until every colour channel is beyond a given
+            the sensitivity until every color channel is beyond a given
             threshold
 Input:      pointer to Sensor_Param_t,threshold
 Returns:    none
@@ -97,7 +97,7 @@ CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max)
     //Switch off LED lightsource
     // TLC59116_GRP_PWM_Set(0);
 
-    // switch off offset and sleep function of colour sensor
+    // switch off offset and sleep function of color sensor
     ADJD_S311_Reg_Set(ADJD_S311_REG_CONFIG,0);
     do
     {
@@ -145,7 +145,7 @@ Purpose:    Call this function to addapt the light to the sensetivity.
             It´s thougt to be called when only passive light reaches the
             sensor area, which should be placed over a referecne white!
             According to the sensitivity and ambient light, this function
-            will decrease PWM values of the single LED until every colour
+            will decrease PWM values of the single LED until every color
             channel is beyond a given threshold
 Input:      pointer to LED-PWM-Values,threshold
 Returns:    none
@@ -225,9 +225,9 @@ CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
 }
 
 
-/********** CS_Colour_Avarerage_Get ****************************************
-Function:   CS_Colour_Avarerage_Get()
-Purpose:    Call this function to get an avarage colour of a smartie
+/********** CS_Color_Avarerage_Get ****************************************
+Function:   CS_Color_Avarerage_Get()
+Purpose:    Call this function to get an avarage color of a smartie
             This function switches on the LED...
             makes a dfined number of measurements wich are summed to an
             avg value
@@ -235,9 +235,9 @@ Input:      pointer to Sensor_Data_t
 Returns:    none
 **************************************************************************/
 void
-CS_Colour_Average_Get(ADJD_S311_Data_t* p_smartie_colour)
+CS_Color_Average_Get(ADJD_S311_Data_t* p_smartie_color)
 {
-    ADJD_S311_Data_t colour_data_temp;
+    ADJD_S311_Data_t color_data_temp;
     uint8_t ui8_tmp;
     //switch on LED
     TLC59116_GRP_PWM_Set(0xFF);
@@ -245,16 +245,16 @@ CS_Colour_Average_Get(ADJD_S311_Data_t* p_smartie_colour)
 
     for (ui8_tmp = 0; ui8_tmp<CS_MEASURE_CNTS; ui8_tmp++)
     {
-        ADJD_S311_Data_Get(&colour_data_temp);
-        p_smartie_colour->Red    += colour_data_temp.Red;
-        p_smartie_colour->Green  += colour_data_temp.Green;
-        p_smartie_colour->Blue   += colour_data_temp.Blue;
-        p_smartie_colour->Clear  += colour_data_temp.Clear;
+        ADJD_S311_Data_Get(&color_data_temp);
+        p_smartie_color->Red    += color_data_temp.Red;
+        p_smartie_color->Green  += color_data_temp.Green;
+        p_smartie_color->Blue   += color_data_temp.Blue;
+        p_smartie_color->Clear  += color_data_temp.Clear;
     }
-    p_smartie_colour->Red    >>= CS_MEASURE_EXP;
-    p_smartie_colour->Green  >>= CS_MEASURE_EXP;
-    p_smartie_colour->Blue   >>= CS_MEASURE_EXP;
-    p_smartie_colour->Clear  >>= CS_MEASURE_EXP;
+    p_smartie_color->Red    >>= CS_MEASURE_EXP;
+    p_smartie_color->Green  >>= CS_MEASURE_EXP;
+    p_smartie_color->Blue   >>= CS_MEASURE_EXP;
+    p_smartie_color->Clear  >>= CS_MEASURE_EXP;
 
     _delay_ms(2);
 
