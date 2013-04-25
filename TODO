@@ -1,0 +1,9 @@
+
+TODO-list für die 4.revision der Software des Smarties-Sortierers:
+
++DEBUG defines für jedes Modul vereinzeln und zentral im debug.h definieren / ein-/ausschalten.
+    Done
+
++ entfernen der Inkonsistenz der Schreibweise von COLOUR / COLOR ausmerzen
+    -> alles zu (AE) color
+    Done
