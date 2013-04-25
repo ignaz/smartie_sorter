@@ -36,16 +36,17 @@
  */
 
 volatile uint8_t twi_lcd_buf[50]=   {(TWI_LCD_ADRESS<<1),4,
-                                    0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0};
+                                     0,0,0,0,0,0,0,0,
+                                     0,0,0,0,0,0,0,0,
+                                     0,0,0,0,0,0,0,0,
+                                     0,0,0,0,0,0,0,0,
+                                     0,0,0,0,0,0,0,0,
+                                     0,0,0,0,0,0,0,0
+                                    };
 
 
- volatile uint8_t lcd_rot_enc_val=0;
- volatile uint8_t lcd_buttun_pressed=0;
+volatile uint8_t lcd_rot_enc_val=0;
+volatile uint8_t lcd_buttun_pressed=0;
 /*
 ** PUBLIC FUNCTIONS
 */
@@ -57,10 +58,10 @@ Returns: none
 *************************************************************************/
 void lcd_command(uint8_t cmd)
 {
-	twi_lcd_buf[2] = TWI_LCD_COMMAND;
-	twi_lcd_buf[3] = cmd;
+    twi_lcd_buf[2] = TWI_LCD_COMMAND;
+    twi_lcd_buf[3] = cmd;
     lcd_waitbusy();
-	TWI_Master_Transceive_Message(twi_lcd_buf,4);
+    TWI_Master_Transceive_Message(twi_lcd_buf,4);
 }
 
 
@@ -71,10 +72,10 @@ Returns: none
 *************************************************************************/
 void lcd_data(uint8_t data)
 {
-	twi_lcd_buf[2] = TWI_LCD_DATA;
-	twi_lcd_buf[3] = data;
+    twi_lcd_buf[2] = TWI_LCD_DATA;
+    twi_lcd_buf[3] = data;
     lcd_waitbusy();
-	TWI_Master_Transceive_Message(twi_lcd_buf,4);
+    TWI_Master_Transceive_Message(twi_lcd_buf,4);
 }
 
 
@@ -143,10 +144,10 @@ Returns:  none
 void lcd_putc(char c)
 {
     lcd_waitbusy();
-	twi_lcd_buf[2] = TWI_LCD_PUTC;
-	twi_lcd_buf[3] = c;
+    twi_lcd_buf[2] = TWI_LCD_PUTC;
+    twi_lcd_buf[3] = c;
     lcd_waitbusy();
-	TWI_Master_Transceive_Message(twi_lcd_buf,4);
+    TWI_Master_Transceive_Message(twi_lcd_buf,4);
 }/* lcd_putc */
 
 
@@ -159,15 +160,15 @@ void lcd_puts(const char *s)
 /* print string on lcd (no auto linefeed) */
 {
     register char c;
-		uint8_t i = 3;
+    uint8_t i = 3;
 
-		twi_lcd_buf[2] = TWI_LCD_PUTS;
-		while ( (c = *s++) )
-            twi_lcd_buf[i++] = c;
+    twi_lcd_buf[2] = TWI_LCD_PUTS;
+    while ( (c = *s++) )
+        twi_lcd_buf[i++] = c;
 
-		twi_lcd_buf[i++] = 0;
-        lcd_waitbusy();
-        TWI_Master_Transceive_Message(twi_lcd_buf,i);
+    twi_lcd_buf[i++] = 0;
+    lcd_waitbusy();
+    TWI_Master_Transceive_Message(twi_lcd_buf,i);
 }/* lcd_puts */
 
 
@@ -180,15 +181,16 @@ void lcd_puts_p(const char *progmem_s)
 /* print string from program memory on lcd (no auto linefeed) */
 {
     register char c;
-		uint8_t i = 3;
+    uint8_t i = 3;
 
-		twi_lcd_buf[2] = TWI_LCD_PUTS;
-    while ( (c = pgm_read_byte(progmem_s++)) ) {
+    twi_lcd_buf[2] = TWI_LCD_PUTS;
+    while ( (c = pgm_read_byte(progmem_s++)) )
+    {
         twi_lcd_buf[i++] = c;
     }
-		twi_lcd_buf[i++] = 0;
-        lcd_waitbusy();
-        TWI_Master_Transceive_Message(twi_lcd_buf,i);
+    twi_lcd_buf[i++] = 0;
+    lcd_waitbusy();
+    TWI_Master_Transceive_Message(twi_lcd_buf,i);
 
 }/* lcd_puts_p */
 
@@ -204,8 +206,8 @@ Returns:  none
 void lcd_init(uint8_t dispAttr)
 {
     lcd_waitbusy();
-	twi_lcd_buf[2] = TWI_LCD_INIT;
-	twi_lcd_buf[3] = dispAttr;
+    twi_lcd_buf[2] = TWI_LCD_INIT;
+    twi_lcd_buf[3] = dispAttr;
     TWI_Master_Transceive_Message(twi_lcd_buf,4);
 }/* lcd_init */
 
@@ -216,7 +218,7 @@ Returns:
 *************************************************************************/
 void lcd_waitbusy(void)
 {
-	while (!((TWI_Master_Read_Byte(9))&(_BV(BUF_0_EMPTY)|_BV(BUF_1_EMPTY))));
+    while (!((TWI_Master_Read_Byte(9))&(_BV(BUF_0_EMPTY)|_BV(BUF_1_EMPTY))));
 }/* lcd_init */
 
 

@@ -33,17 +33,18 @@
 #include "colour_sensor.h"
 
 enum COLOUR {Unknown=0,Red,Orange,Yellow,Green,Blue,Violett,Pink,Brown,COLOUR_MAX};
-typedef struct rgbw_s{
+typedef struct rgbw_s
+{
     uint16_t red;
     uint16_t green;
     uint16_t blue;
     uint16_t clear;
-    } rgbw_t;
+} rgbw_t;
 
 extern rgbw_t sm_colour_table[COLOUR_MAX];
 extern rgbw_t sm_colour_avarage_sum;
 
-    extern uint8_t //enum COLOUR
+extern uint8_t //enum COLOUR
 SM_Colour_Attach (ADJD_S311_Data_t * p_smartie_colour);
 
 /********** SM_Colour_Correct *********************************************
@@ -54,7 +55,7 @@ Purpose:    Call this function to Correct the colour_table ....
 Input:      pointer to Sensor_Data_t
 Returns:    COLOUR
 **************************************************************************/
-    extern void //enum COLOUR
+extern void //enum COLOUR
 SM_Colour_Correct(ADJD_S311_Data_t* p_smartie_colour,enum COLOUR colour);
 /********** SM_Colours_Store *********************************************
 Function:   SM_Colours_Store()
@@ -62,7 +63,7 @@ Purpose:    Call this function to store the actual colour table to the EEPROM
 Input:      pointer to Sensor_Data_t
 Returns:    COLOUR
 **************************************************************************/
-    extern void //enum COLOUR
+extern void //enum COLOUR
 SM_Colours_Store(void);
 
 /********** SM_Colours_Restore *********************************************
@@ -71,7 +72,7 @@ Purpose:    Call this function to store the actual colour table to the EEPROM
 Input:      pointer to Sensor_Data_t
 Returns:    COLOUR
 **************************************************************************/
-    extern void //enum COLOUR
+extern void //enum COLOUR
 SM_Colours_Restore(void);
 
 

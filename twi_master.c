@@ -24,11 +24,10 @@
 #include "twi_master.h"
 #include <util/twi.h>
 #include "uart.h"
-//#include "debug.h"
+#include "debug.h"
 
 
-#define debug 0
-#if debug
+#if twi_debug
 //static uint8_t temp_ui8_reg=0;
 #endif
 
@@ -60,7 +59,7 @@ TWI_Master_Init (uint8_t twi_baudrate_reg)
     TWCR = _BV(TWEN); 			    // switch on TWI
     twi_status = TWI_STAT_RDY;      // set twi status
     twi_err = 0;                    // clear twi error
-#if debug
+#if twi_debug
     uart_puts_P("\n\n\rTWI_Init...\n\rTWBR: ");
     uart_put_bin8(TWBR);
     uart_puts_P("\n\rTWCR: ");
@@ -79,12 +78,12 @@ TWI_Master_Init (uint8_t twi_baudrate_reg)
  * =====================================================================================
  */
 uint8_t
-TWI_Master_Transceive_Message (uint8_t *message, uint8_t messagesize)
+TWI_Master_Transceive_Message (volatile uint8_t *message, uint8_t messagesize)
 {
 
     uint8_t i;
 
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\n\rTWI_Tx_Msg! TWCR: \n\r");
     do
     {
@@ -105,22 +104,22 @@ TWI_Master_Transceive_Message (uint8_t *message, uint8_t messagesize)
         if(*(uint8_t *)message & TWI_READ_BIT)
         {
             twi_buf[0] = *(uint8_t *)message;
-            #if debug
-                uart_puts_P("\n\r\ttwi_buf[0]: ");
-                uart_put_bin8(twi_buf[0]);
-            #endif
+#if TWI_DEBUG
+            uart_puts_P("\n\r\ttwi_buf[0]: ");
+            uart_put_bin8(twi_buf[0]);
+#endif
         }
         else
         {
             for(i=0; i<messagesize; i++)
             {
                 twi_buf[i] = *(((uint8_t *) message)+i);
-                #if debug
-                    uart_puts_P("\n\r\ttwi_buf[");
-                    uart_putc('0'+i);
-                    uart_puts_P("]: ");
-                    uart_put_bin8(twi_buf[i]);
-                #endif
+#if TWI_DEBUG
+                uart_puts_P("\n\r\ttwi_buf[");
+                uart_putc('0'+i);
+                uart_puts_P("]: ");
+                uart_put_bin8(twi_buf[i]);
+#endif
             }
         }
         twi_buf_cnt = messagesize;
@@ -131,7 +130,7 @@ TWI_Master_Transceive_Message (uint8_t *message, uint8_t messagesize)
     {
         twi_err = TWI_ERR_BUF_OVF;
         twi_status = TWI_STAT_ERROR;
-#ifdef debug
+#ifdef TWI_DEBUG
         uart_puts_P("\n\rtwi_err:");
         uart_put_bin8(twi_err);
 #endif
@@ -153,7 +152,7 @@ void
 TWI_Master_Start_Transceiver (void)
 {
 
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\n\rTWI_Tx_Start!\ntwi_err:\n\r");
     do
     {
@@ -172,11 +171,11 @@ TWI_Master_Start_Transceiver (void)
     twi_err = 0; 								// clear twi error
 
     TWCR |= ( _BV(TWEA) | _BV(TWSTA) | _BV(TWIE)); 	// Initialise transmission via
-                                                    // TWI-startcondition,
-                                                    // enable TWI interrupt and
+    // TWI-startcondition,
+    // enable TWI interrupt and
     // TWCR |= _BV(TWINT);                          // finally clear TWI interrupt flag
 
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\rTWCR: ");
     uart_put_bin8(TWCR);
 #endif
@@ -194,7 +193,7 @@ TWI_Master_Start_Transceiver (void)
 uint8_t
 TWI_Master_Get_State (void)
 {
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\n\rTWI_Get_Status! twi_status:\n\r");
     do
     {
@@ -221,9 +220,10 @@ TWI_Master_Get_State (void)
 uint8_t
 TWI_Master_Get_Error(void )
 {
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\n\rTWI_Get_Error! twi_error:\n\r");
-    do{
+    do
+    {
         uart_putc('\r');
         uart_put_bin8(twi_err);
         uart_putc('\t');
@@ -248,12 +248,12 @@ TWI_Master_Get_Error(void )
  * =====================================================================================
  */
 uint8_t
-TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size)
+TWI_Master_Get_Transceiver_Data(volatile uint8_t * message, uint8_t message_size)
 {
     uint8_t i;
     uint8_t * p_message = message;
 
-#if debug
+#if TWI_DEBUG
     uart_puts_P("\n\n\rTWI_Get_Tx_Data:  ");
     while(TWI_Master_Transceiver_Busy())
         uart_put_wait();
@@ -264,7 +264,7 @@ TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size)
     switch (twi_status)
     {
     case TWI_STAT_RX_COMPLETE:
-#if debug
+#if TWI_DEBUG
         uart_puts_P(" RX complete");
 #endif
         for(i=0; i<message_size; i++)
@@ -274,7 +274,7 @@ TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size)
         twi_status = TWI_STAT_RDY;
         break;
     case TWI_STAT_TX_COMPLETE:
-#if debug
+#if TWI_DEBUG
         uart_puts_P(" no RX");
 #endif
         twi_err = TWI_ERR_NO_RX;
@@ -297,7 +297,7 @@ TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size)
  *      Returns:  none
  * =====================================================================================
  */
-    uint8_t
+uint8_t
 TWI_Master_Write_Register(uint8_t reg, uint8_t value, uint8_t address)
 {
     while (TWI_Master_Transceiver_Busy());	// Wait until previous transmision is done
@@ -319,7 +319,7 @@ TWI_Master_Write_Register(uint8_t reg, uint8_t value, uint8_t address)
  *  	Returns:  none
  * =====================================================================================
  */
-    uint8_t
+uint8_t
 TWI_Master_Write_Byte(uint8_t byte, uint8_t address)
 {
     while (TWI_Master_Transceiver_Busy());	// Wait until previous transmision is done
@@ -382,7 +382,7 @@ TWI_Master_Read_Register(uint8_t reg,uint8_t address)
 
 ISR(TWI_vect)
 {
-#if debug
+#if TWI_DEBUG
     //uart_puts_P("\n\rTWI ISR! TW_STATUS: ");
     //uart_put_bin8(TW_STATUS);
 #endif
@@ -390,7 +390,7 @@ ISR(TWI_vect)
     {
     case TW_START:                      // Start condition or
     case TW_REP_START:                  // repeated start condition transmitted
-                                    // => we are becoming bus master!
+        // => we are becoming bus master!
         twi_buf_ptr = 0;				// Reset buffer position
 
     case TW_MT_SLA_ACK: 				// Slave addresse ack´ed
@@ -402,11 +402,11 @@ ISR(TWI_vect)
             twi_err = 0; 							// no error
             // clear TWINT, initiate stop condition disable TW-interrupt
             TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN);
-            }
+        }
         else
         {
             TWDR = twi_buf[twi_buf_ptr++]; 	// Copy Data from current buffer position to data rgister
-                                            // Post increment pointer
+            // Post increment pointer
             // clear TWINT
             TWCR = _BV(TWINT) | _BV(TWEN) | _BV(TWIE);
         }
@@ -436,7 +436,7 @@ ISR(TWI_vect)
         TWCR = _BV(TWINT) | _BV(TWSTO)| _BV(TWEN);
         break;                              // Leave state machine
 
- // posible errors
+// posible errors
     case TW_MR_ARB_LOST:                    // Arbitrsation lost
         twi_err = TW_STATUS;
         // clear TWINT, initiate restart condition

@@ -32,7 +32,8 @@
 Data structure definition for the TMC222 status information.
 Use variables of this data type togehter with the GetFullStatus1() function.
 *****************************************************************************/
-typedef struct TMC222_Status_s{
+typedef struct TMC222_Status_s
+{
     uint8_t adr:    8;
     uint8_t IHold:  4;
     uint8_t IRun:   4;
@@ -56,7 +57,7 @@ typedef struct TMC222_Status_s{
     uint8_t ESW:    1;
     uint8_t Motion: 3;
     uint16_t NA2:   16;
-    } TMC222_Status_t;
+} TMC222_Status_t;
 
 /*****************************************************************************
 Data structure definition for the TMC222 motor parameters.
@@ -64,19 +65,20 @@ Use variables of this type together with the SetMotorParameters()
 and GetMotorParameters() functions.
 *****************************************************************************/
 
-typedef struct TMC222_Parameters_s{
-  uint8_t IHold: 4;
-  uint8_t IRun: 4;
-  uint8_t VMin: 4;
-  uint8_t VMax: 4;
-  uint8_t Acc: 4;
-  uint8_t Shaft: 1;
-  uint8_t SecPosHi: 3;
-  uint8_t SecPosLo: 8;
-  uint8_t NA1: 2;
-  uint8_t StepMode: 2;
-  uint8_t AccShape: 1;
-  uint8_t NA2: 3;
+typedef struct TMC222_Parameters_s
+{
+    uint8_t IHold: 4;
+    uint8_t IRun: 4;
+    uint8_t VMin: 4;
+    uint8_t VMax: 4;
+    uint8_t Acc: 4;
+    uint8_t Shaft: 1;
+    uint8_t SecPosHi: 3;
+    uint8_t SecPosLo: 8;
+    uint8_t NA1: 2;
+    uint8_t StepMode: 2;
+    uint8_t AccShape: 1;
+    uint8_t NA2: 3;
 } TMC222_Parameters_t;
 
 

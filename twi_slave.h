@@ -41,19 +41,22 @@
  * typedefs:
  */
 
-typedef struct {
-	uint8_t 	command;
-	uint8_t 	data[LCD_BUFFER_SIZE];
+typedef struct
+{
+    uint8_t 	command;
+    uint8_t 	data[LCD_BUFFER_SIZE];
 } lcd_block_t;
 
-typedef union {
-	struct {
-		uint8_t  	status;
-		uint8_t  	port_x;
-		uint16_t 	rot_enc_pos;
-		lcd_block_t lcd[2];
-	} reg;
-	uint8_t buffer[TWI_BUFFER_SIZE];
+typedef union
+{
+    struct
+    {
+        uint8_t  	status;
+        uint8_t  	port_x;
+        uint16_t 	rot_enc_pos;
+        lcd_block_t lcd[2];
+    } reg;
+    uint8_t buffer[TWI_BUFFER_SIZE];
 } twi_t;
 
 

@@ -18,22 +18,22 @@
  */
 
 
- /**
- @defgroup smarties_controller TWI library
- @code #include <twi_master.h> @endcode
+/**
+@defgroup smarties_controller TWI library
+@code #include <twi_master.h> @endcode
 
- @brief Basic routines for communication as TWI-master
+@brief Basic routines for communication as TWI-master
 
- This file contains a full featured driver for the TWI-unit in master mode.
- By now, only few devices are supported by this driver.
+This file contains a full featured driver for the TWI-unit in master mode.
+By now, only few devices are supported by this driver.
 
- This library is based on the ATMEL Apliction Note AN315
+This library is based on the ATMEL Apliction Note AN315
 
- @author Ignaz Laepple ignaz.laepple@gmx.de
+@author Ignaz Laepple ignaz.laepple@gmx.de
 
 */
 
- /*@{*/
+/*@{*/
 
 #ifndef _TWI_MASTER_H
 #define _TWI_MASTER_H
@@ -119,13 +119,13 @@ typedef union {
  * =====================================================================================
  */
 
- /**
- * TWI_Master_Init
- * This function initialises the TWI-master
- * it sets the baudrate-register, enables TWI-unit and clears twi_status / errors
- * @param baudrate a integer
- * @return nothing
- */
+/**
+* TWI_Master_Init
+* This function initialises the TWI-master
+* it sets the baudrate-register, enables TWI-unit and clears twi_status / errors
+* @param baudrate a integer
+* @return nothing
+*/
 extern void
 TWI_Master_Init (uint8_t baudrate);
 /* -----  end of function TWI_Master_Init  ----- */
@@ -140,10 +140,10 @@ TWI_Master_Init (uint8_t baudrate);
  * =====================================================================================
  */
 
- /**
- @brief    Checks whether transceiver is busy transmitting.
- @param    none
- @return   1 if transceiver is busy, 0 else
+/**
+@brief    Checks whether transceiver is busy transmitting.
+@param    none
+@return   1 if transceiver is busy, 0 else
 */
 #define TWI_Master_Transceiver_Busy() 	(TWCR & _BV(TWIE))
 
@@ -158,7 +158,7 @@ TWI_Master_Init (uint8_t baudrate);
  * =====================================================================================
  */
 extern uint8_t
-TWI_Master_Transceive_Message (uint8_t *message, uint8_t messagesize);
+TWI_Master_Transceive_Message (volatile uint8_t *message, uint8_t messagesize);
 
 /* -----  end of function TWI_Master_Start_Transceiver  ----- */
 
@@ -202,7 +202,7 @@ TWI_Master_Get_State (void);
  * =====================================================================================
  */
 extern uint8_t
-TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size);
+TWI_Master_Get_Transceiver_Data(volatile uint8_t * message, uint8_t message_size);
 
 /* -----  end of function TWI_Master_Get_Transceiver_Data ----- */
 
@@ -215,7 +215,7 @@ TWI_Master_Get_Transceiver_Data(uint8_t * message, uint8_t message_size);
  *      Returns:  none
  * =====================================================================================
  */
-    extern uint8_t
+extern uint8_t
 TWI_Master_Write_Register(uint8_t reg, uint8_t value, uint8_t address);
 
 /*
@@ -227,7 +227,7 @@ TWI_Master_Write_Register(uint8_t reg, uint8_t value, uint8_t address);
  *  	Returns:  none
  * =====================================================================================
  */
-    extern uint8_t
+extern uint8_t
 TWI_Master_Write_Byte(uint8_t byte, uint8_t address);
 
 /*
@@ -239,7 +239,7 @@ TWI_Master_Write_Byte(uint8_t byte, uint8_t address);
  *  	Returns:  byte
  * =====================================================================================
  */
-    extern uint8_t
+extern uint8_t
 TWI_Master_Read_Byte(uint8_t address);
 
 /*
@@ -252,7 +252,7 @@ TWI_Master_Read_Byte(uint8_t address);
  *  	Returns:  byte
  * =====================================================================================
  */
-    extern uint8_t
+extern uint8_t
 TWI_Master_Read_Register(uint8_t reg,uint8_t address);
 
 

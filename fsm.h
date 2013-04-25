@@ -20,8 +20,8 @@
  * =====================================================================================
  */
 
- #ifndef _FSM_H
- #define _FSM_H
+#ifndef _FSM_H
+#define _FSM_H
 
 extern volatile uint8_t fsm_pause;
 
@@ -29,7 +29,8 @@ enum fsm_mode { md_idle=0,
                 md_init,
                 md_learning,
                 md_running,
-                md_pause};
+                md_pause
+              };
 extern enum fsm_mode cur_mode;
 
 
@@ -39,7 +40,7 @@ Purpose:
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 FSM_Check_State(void);
 
 

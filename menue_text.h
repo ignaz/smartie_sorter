@@ -26,7 +26,7 @@ const uint8_t PROGMEM MN_TXT_R2_LEV0[] = {"Prev      ENTER      Next"};
 
 const uint8_t PROGMEM MN_TXT_R1_LEV1[] = {"Sensor:     Catcher:     "};
 
-const uint8_t PROGMEM MN_COL[COLOUR_MAX][3] =
+const uint8_t PROGMEM MN_COL[COLOUR_MAX][4] =
 {
     {'N','O',' ',0},
     {'r','e','d',0},

@@ -1,4 +1,3 @@
-
 #ifndef LCD_H
 #define LCD_H
 /*
@@ -53,11 +52,11 @@
 #include <inttypes.h>
 #include <avr/pgmspace.h>
 
- #define TWI_LCD_ADRESS 18
+#define TWI_LCD_ADRESS 18
 
- extern volatile uint8_t twi_lcd_buf[50];
- extern volatile uint8_t lcd_rot_enc_val;
- extern volatile uint8_t lcd_buttun_pressed;
+extern volatile uint8_t twi_lcd_buf[50];
+extern volatile uint8_t lcd_rot_enc_val;
+extern volatile uint8_t lcd_buttun_pressed;
 
 
 

@@ -1,4 +1,3 @@
-
 /*
  * =====================================================================================
  *
@@ -58,7 +57,7 @@ void ADJD_S311_Data_Get(ADJD_S311_Data_t *SensorData)
     buffer[1] = ADJD_S311_REG_DATA;
     TWI_Master_Transceive_Message(buffer,2);
 
-            //...and copy the data to the struct SensorData
+    //...and copy the data to the struct SensorData
     buffer[0] = (ADJD_S311_ADDRESS << 1) | TW_READ;
     TWI_Master_Transceive_Message(buffer,sizeof(ADJD_S311_Data_t));
     TWI_Master_Get_Transceiver_Data(SensorData,sizeof(ADJD_S311_Data_t));
@@ -73,7 +72,7 @@ void ADJD_S311_Data_Get(ADJD_S311_Data_t *SensorData)
    Purpose: Initialise the Colour driver.
 
 ******************************************************************************/
-    void
+void
 ADJD_S311_Offset_Get(ADJD_S311_Offset_t *SensorOffset)
 {
     uint8_t buffer[3],ui8_i,ui8_temp;
@@ -93,7 +92,7 @@ ADJD_S311_Offset_Get(ADJD_S311_Offset_t *SensorOffset)
     buffer[1] = ADJD_S311_REG_OFFSET;
     TWI_Master_Transceive_Message(buffer,2);
 
-            //...and copy the data to the struct SensorData
+    //...and copy the data to the struct SensorData
     buffer[0] = (ADJD_S311_ADDRESS << 1) | TW_READ;
     TWI_Master_Transceive_Message(buffer,sizeof(ADJD_S311_Offset_t));
     TWI_Master_Get_Transceiver_Data(SensorOffset,sizeof(ADJD_S311_Offset_t));
@@ -117,7 +116,7 @@ void ADJD_S311_Param_Set(ADJD_S311_Param_t *SensorParam)
     buffer[0] = (ADJD_S311_ADDRESS<<1)| TW_WRITE;
     buffer[1] = ADJD_S311_REG_PARAM;
 
-    for (ui8_i=0;ui8_i<(sizeof(ADJD_S311_Param_t));ui8_i++)
+    for (ui8_i=0; ui8_i<(sizeof(ADJD_S311_Param_t)); ui8_i++)
         //buffer[ui8_i+2] = (*(((uint8_t*)SensorParam)+ui8_i));
         buffer[ui8_i+2] = p_byte[ui8_i];
 
@@ -135,7 +134,7 @@ void ADJD_S311_Param_Set(ADJD_S311_Param_t *SensorParam)
 
 ******************************************************************************/
 
-    void
+void
 ADJD_S311_Sensor_Start(void)
 {
     // write a 1 (GSSR-bit) into the CTRL-register of the ADJD-S311 to initiate
@@ -153,7 +152,7 @@ ADJD_S311_Sensor_Start(void)
 
 ******************************************************************************/
 
-    void
+void
 ADJD_S311_Offset_Clear(void)
 {
     // write a 1 (GSSR-bit) into the CTRL-register of the ADJD-S311 to initiate
@@ -172,7 +171,7 @@ ADJD_S311_Offset_Clear(void)
 
 ******************************************************************************/
 
-    void
+void
 ADJD_S311_Reg_Set(uint8_t reg,uint8_t value)
 {
     uint8_t buffer[3];
@@ -196,7 +195,7 @@ ADJD_S311_Reg_Set(uint8_t reg,uint8_t value)
 
 ******************************************************************************/
 
-    uint8_t
+uint8_t
 ADJD_S311_Reg_Get(uint8_t reg)
 {
     uint8_t buffer[2],value;

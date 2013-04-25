@@ -39,7 +39,7 @@
 
 #include "smarties.h"
 
-#define debug 1
+// #define CS_DEBUG 0 //debug in debug.h en-/disabled
 
 
 /******** Variables of the colour sensor **********************************
@@ -56,7 +56,7 @@ Purpose:  initialize the colour sensor
 Input:    none
 Returns:  none
 **************************************************************************/
-    void
+void
 CS_Init(void)
 {
 
@@ -73,13 +73,13 @@ Purpose:    Call this function to addapt the sensor gain.
 Input:      pointer to Sensor_Param_t,threshold
 Returns:    none
 **************************************************************************/
-    void
+void
 CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max)
 {
     //ADJD_S311_Offset_t cs_offset;
     uint16_t temp_int16 = 0x00F0;
     int8_t offset_clear;    // no real signed value: (no two´s complement)
-                            // MSB as signed bit is sufficent for comparison...
+    // MSB as signed bit is sufficent for comparison...
 
     // Set number of integration capacitors to max (for maximum Integration time)
     // Set the integraton time to usefull maximum.
@@ -95,7 +95,7 @@ CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max)
     ADJD_S311_Param_Set(p_parameter);
 
     //Switch off LED lightsource
-        // TLC59116_GRP_PWM_Set(0);
+    // TLC59116_GRP_PWM_Set(0);
 
     // switch off offset and sleep function of colour sensor
     ADJD_S311_Reg_Set(ADJD_S311_REG_CONFIG,0);
@@ -107,16 +107,16 @@ CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max)
         while(ADJD_S311_Reg_Get(ADJD_S311_REG_CTRL));
 
         offset_clear = ADJD_S311_Reg_Get(0x4B); //ADJD_S311_REG_OFFSET_CLEAR);
-        #if debug_1
+#if CS_DEBUG
         uart_puts_P("\rOffset: ");
         uart_put_uint16(offset_clear);
         uart_putc(' ');
         uart_puts_P("Integration time slots: ");
         uart_put_uint16(temp_int16);
-        #endif
+#endif
 
         if(offset_clear >= dark_max)    // no real signed value: (no two´s complement)
-                                        // MSB as signed bit is sufficent for comparison...
+            // MSB as signed bit is sufficent for comparison...
         {
             temp_int16 --;
             p_parameter->IntRed     =temp_int16;
@@ -130,10 +130,10 @@ CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max)
     }
     while(offset_clear >= dark_max);
 
-    #if debug
+#if CS_DEBUG
     uart_puts_P("\nI-Timeslots:");
     uart_put_uint16(temp_int16);
-    #endif
+#endif
     p_parameter->IntClear >>=1;
     ADJD_S311_Param_Set(p_parameter);
 
@@ -150,7 +150,7 @@ Purpose:    Call this function to addapt the light to the sensetivity.
 Input:      pointer to LED-PWM-Values,threshold
 Returns:    none
 **************************************************************************/
-  void
+void
 CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
               uint16_t sensor_val_max)
 {
@@ -180,10 +180,10 @@ CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
     }
     p_sensor_led->Red0 = sensor_led_tmp;
     TLC59116_Set_PWM_Channel(4,0);
-    #if debug
+#if CS_DEBUG
     uart_puts_P("\nPWM-Red:");
     uart_put_uint16(sensor_led_tmp);
-    #endif
+#endif
 //Addapt Green channel
     sensor_led_tmp = 255;
     TLC59116_Set_PWM_Channel(2,sensor_led_tmp);
@@ -197,10 +197,10 @@ CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
     }
     p_sensor_led->Green0 = sensor_led_tmp;
     TLC59116_Set_PWM_Channel(2,0);
-    #if debug
+#if CS_DEBUG
     uart_puts_P("\tPWM-Green:");
     uart_put_uint16(sensor_led_tmp);
-    #endif
+#endif
 // Addapt Blue channel
     sensor_led_tmp = 255;
     TLC59116_Set_PWM_Channel(0,sensor_led_tmp);
@@ -214,10 +214,10 @@ CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
     }
     p_sensor_led->Blue0 = sensor_led_tmp;
     TLC59116_Set_PWM_Channel(2,0);
-    #if debug
+#if CS_DEBUG
     uart_puts_P("\tPWM-Blue:");
     uart_put_uint16(sensor_led_tmp);
-    #endif
+#endif
     // write addapted channel values (saved @ p_sensor_led) to the TLC59116
 
     TLC59116_Set_PWM_Block(p_sensor_led,0,6);
@@ -234,30 +234,30 @@ Purpose:    Call this function to get an avarage colour of a smartie
 Input:      pointer to Sensor_Data_t
 Returns:    none
 **************************************************************************/
-    void
+void
 CS_Colour_Average_Get(ADJD_S311_Data_t* p_smartie_colour)
 {
     ADJD_S311_Data_t colour_data_temp;
     uint8_t ui8_tmp;
     //switch on LED
-        TLC59116_GRP_PWM_Set(0xFF);
-        _delay_ms(2);
+    TLC59116_GRP_PWM_Set(0xFF);
+    _delay_ms(2);
 
-        for (ui8_tmp = 0;ui8_tmp<CS_MEASURE_CNTS;ui8_tmp++)
-        {
-            ADJD_S311_Data_Get(&colour_data_temp);
-            p_smartie_colour->Red    += colour_data_temp.Red;
-            p_smartie_colour->Green  += colour_data_temp.Green;
-            p_smartie_colour->Blue   += colour_data_temp.Blue;
-            p_smartie_colour->Clear  += colour_data_temp.Clear;
-        }
-        p_smartie_colour->Red    >>= CS_MEASURE_EXP;
-        p_smartie_colour->Green  >>= CS_MEASURE_EXP;
-        p_smartie_colour->Blue   >>= CS_MEASURE_EXP;
-        p_smartie_colour->Clear  >>= CS_MEASURE_EXP;
+    for (ui8_tmp = 0; ui8_tmp<CS_MEASURE_CNTS; ui8_tmp++)
+    {
+        ADJD_S311_Data_Get(&colour_data_temp);
+        p_smartie_colour->Red    += colour_data_temp.Red;
+        p_smartie_colour->Green  += colour_data_temp.Green;
+        p_smartie_colour->Blue   += colour_data_temp.Blue;
+        p_smartie_colour->Clear  += colour_data_temp.Clear;
+    }
+    p_smartie_colour->Red    >>= CS_MEASURE_EXP;
+    p_smartie_colour->Green  >>= CS_MEASURE_EXP;
+    p_smartie_colour->Blue   >>= CS_MEASURE_EXP;
+    p_smartie_colour->Clear  >>= CS_MEASURE_EXP;
 
-        _delay_ms(2);
+    _delay_ms(2);
 
     //switch off LED
-        TLC59116_GRP_PWM_Set(0);
+    TLC59116_GRP_PWM_Set(0);
 }

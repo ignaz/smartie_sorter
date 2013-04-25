@@ -20,8 +20,8 @@
  * =====================================================================================
  */
 
- #ifndef _COLOUR_SENSOR_H
- #define _COLOUR_SENSOR_H
+#ifndef _COLOUR_SENSOR_H
+#define _COLOUR_SENSOR_H
 
 #include <stdlib.h>
 #include <stddef.h>
@@ -40,26 +40,27 @@
 // definition of the nummbers of colourmesurements for avverage measurement
 #define CS_MEASURE_CNTS     (1<<CS_MEASURE_EXP) //
 #define CS_MEASURE_EXP       2                   //Bitte eintragen!! 0->1 time
-                                                // 1-> 2times; 2->4times
+// 1-> 2times; 2->4times
 
 #define CS_MIN_VAL      31      // This value is the maximum value at dark measurement
 #define CS_MAX_VAL      600     // This value is achived at single channel LED addapttion
 
 
-typedef struct CS_Sensor_LED_s{
+typedef struct CS_Sensor_LED_s
+{
     unsigned Blue0:     8;
     unsigned Blue1:     8;
     unsigned Green0:    8;
     unsigned Green1:    8;
     unsigned Red0:      8;
     unsigned Red1:      8;
-}CS_Sensor_LED_t;
+} CS_Sensor_LED_t;
 
 
 /******** global variables of the colour sensor ***************************
 **************************************************************************/
 
-//extern CS_Sensor_LED_t     cs_sensor_led;
+extern CS_Sensor_LED_t     cs_sensor_led;
 extern ADJD_S311_Data_t    cs_sensor_data;
 extern ADJD_S311_Param_t   cs_sensor_param;
 
@@ -70,7 +71,7 @@ Purpose:  initialize the colour sensor
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 CS_Init(void);
 
 /*************************************************************************
@@ -84,7 +85,7 @@ Purpose:    Call this function to addapt the sensor gain.
 Input:      pointer to Sensor_Param_t,threshold
 Returns:    none
 **************************************************************************/
-    extern void
+extern void
 CS_Gain_Addapt(ADJD_S311_Param_t *p_parameter,uint8_t dark_max);
 
 
@@ -99,7 +100,7 @@ Purpose:    Call this function to addapt the light to the sensetivity.
 Input:      pointer to LED-PWM-Values,threshold
 Returns:    none
 **************************************************************************/
-  extern void
+extern void
 CS_LED_Addapt(CS_Sensor_LED_t *p_sensor_led,
               uint16_t sensor_val_max);
 
@@ -112,7 +113,7 @@ Purpose:    Call this function to get an avarage colour of a smartie
 Input:      pointer to Sensor_Data_t
 Returns:    none
 **************************************************************************/
-    extern void
+extern void
 CS_Colour_Average_Get(ADJD_S311_Data_t* p_smartie_colour);
 
 #endif // _COLOUR_SENSOR_H

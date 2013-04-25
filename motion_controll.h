@@ -67,7 +67,7 @@ Purpose:  Sets working parameters of the TMC222 for the catcher stepper.
 Input:    none
 Returns:  error
 **************************************************************************/
-    extern void
+extern void
 MC_Catcher_Init(void);
 
 /*************************************************************************
@@ -76,7 +76,7 @@ Purpose:
 Input:    enum COLOUR
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Catcher_Set_Position(enum COLOUR colour);
 
 /*************************************************************************
@@ -94,7 +94,7 @@ Purpose:  get motion status
 Input:    none
 Returns:  1 if catcher is idle,0 else
 **************************************************************************/
-    extern uint8_t
+extern uint8_t
 MC_Is_Catcher_Idle(void);
 
 /*************************************************************************
@@ -105,7 +105,7 @@ Purpose:  Sets working parameters of the TMC222 for the conveyor stepper.
 Input:    none
 Returns:  error
 **************************************************************************/
-    extern void
+extern void
 MC_Conveyor_Init(void);
 
 /*************************************************************************
@@ -124,7 +124,7 @@ Purpose:  used to move the conveyor back or forward (in steps of 18°)
 Input:    none
 Returns:  enum COLOUR
 **************************************************************************/
-    extern void
+extern void
 MC_Conveyor_Set_Position(int8_t step);
 
 /*************************************************************************
@@ -133,7 +133,7 @@ Purpose:  get motion status
 Input:    none
 Returns:  1 if conveyor is idle, 0 else
 **************************************************************************/
-    extern uint8_t
+extern uint8_t
 MC_Is_Conveyor_Idle(void);
 
 /*************************************************************************
@@ -142,7 +142,7 @@ Purpose:  switch the solenoid of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Solenoid_On(void);
 
 /*************************************************************************
@@ -151,7 +151,7 @@ Purpose:  switch off the solenoid of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Solenoid_Off(void);
 
 /*************************************************************************
@@ -160,7 +160,7 @@ Purpose:  switch off the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Vibrator_On(void);
 
 /*************************************************************************
@@ -169,7 +169,7 @@ Purpose:  switch off the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Vibrator_Off(void);
 
 /*************************************************************************
@@ -178,7 +178,7 @@ Purpose:  switch off the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    extern void
+extern void
 MC_Eject_Smartie(void);
 
 /*************************************************************************
@@ -187,7 +187,7 @@ Purpose:  returns 1 if the Solenoid is activ for at least MC_SOLENOID_ON TIME
 Input:    none
 Returns:  1 if smaretie should lie in the chamber of the conveyor
 **************************************************************************/
-    extern uint8_t
+extern uint8_t
 MC_Is_Smartie_Ejected(void);
 
 /*************************************************************************
@@ -195,10 +195,10 @@ ISR_Init:   MC_Timer_0Init()
 Purpose:    Initialisation of the timer0 interrupt that should occour
             every ms. Used for non blocking delays!!
 **************************************************************************/
-    extern void
+extern void
 MC_Timer0_Init(void);
 
-    extern void
+extern void
 MC_FSM_Execute(void);
 
 

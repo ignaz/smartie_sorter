@@ -57,7 +57,7 @@
    Purpose: Initialise the LED driver.
 
 ******************************************************************************/
-    extern void
+extern void
 TLC59116_Init(void);
 
 /*****************************************************************************
@@ -83,7 +83,7 @@ TLC59116_Init(void);
    Purpose: Sets PWM block.
 
 ******************************************************************************/
-    extern void
+extern void
 TLC59116_Set_PWM_Block (uint8_t *block,uint8_t blockstart,uint8_t blocksize);
 
 

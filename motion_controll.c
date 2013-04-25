@@ -43,58 +43,62 @@
 
 
 // defines and defaults of the parameters of the catcher motor:
-    //defs
+//defs
 #define CATCHER_ADDRESS         0x61
 
-    //defaults
-    static TMC222_Parameters_t catcher_parameters={
-        8,15,2,8,2,0,4,0,0,3,0,0};
-    /*
-    .IHold    =8;
-    .IRun     =15;
-    .VMin     =2;
-    .VMax     =8;
-    .Acc      =2;1
-    .Shaft    =0;
-    .SecPosHi =4; -> Dont use Secure position!!!
-    .SecPosLo =0;
-    .NA1      =0;
-    .StepMode =3;
-    .AccShape =0;
-    .NA2      =0;*/
+//defaults
+static TMC222_Parameters_t catcher_parameters=
+{
+    8,15,2,8,2,0,4,0,0,3,0,0
+};
+/*
+.IHold    =8;
+.IRun     =15;
+.VMin     =2;
+.VMax     =8;
+.Acc      =2;1
+.Shaft    =0;
+.SecPosHi =4; -> Dont use Secure position!!!
+.SecPosLo =0;
+.NA1      =0;
+.StepMode =3;
+.AccShape =0;
+.NA2      =0;*/
 
-    TMC222_Status_t mc_catcher_status;
-    int16_t mc_catcher_position_cnt = 0;
-    uint8_t mc_catcher_position_index = 0;
-    int16_t mc_catcher_position_table[9] = {0,356,711,1067,1422,1778,2133,2489,2844};
+TMC222_Status_t mc_catcher_status;
+int16_t mc_catcher_position_cnt = 0;
+uint8_t mc_catcher_position_index = 0;
+int16_t mc_catcher_position_table[9] = {0,356,711,1067,1422,1778,2133,2489,2844};
 
 //
 
 // defines and defaults of the parameters of the catcher motor:
-    //defs
+//defs
 #define CONVEYOR_ADDRESS         0x60
 
-    //defaults
-    TMC222_Parameters_t conveyor_parameters={
-        8,15,2,7,2,0,4,0,0,3,0,0};
-        /*
-        .IHold    =8;
-        .IRun     =15;
-        .VMin     =2;
-        .VMax     =7;
-        .Acc      =3;
-        .Shaft    =0;
-        .SecPosHi =4; -> Dont use Secure position!!!
-        .SecPosLo =0;
-        .NA1      =0;
-        .StepMode =3;
-        .AccShape =0;
-        .NA2      =0;*/
+//defaults
+TMC222_Parameters_t conveyor_parameters=
+{
+    8,15,2,7,2,0,4,0,0,3,0,0
+};
+/*
+.IHold    =8;
+.IRun     =15;
+.VMin     =2;
+.VMax     =7;
+.Acc      =3;
+.Shaft    =0;
+.SecPosHi =4; -> Dont use Secure position!!!
+.SecPosLo =0;
+.NA1      =0;
+.StepMode =3;
+.AccShape =0;
+.NA2      =0;*/
 
-    TMC222_Status_t mc_conveyor_status;
-    int16_t mc_conveyor_position_cnt = 0;
-    uint8_t mc_conveyor_position_index = 0;
-    enum COLOUR mc_smartie_table[MC_CONVEYOR_SLOTS];
+TMC222_Status_t mc_conveyor_status;
+int16_t mc_conveyor_position_cnt = 0;
+uint8_t mc_conveyor_position_index = 0;
+enum COLOUR mc_smartie_table[MC_CONVEYOR_SLOTS];
 
 //
 
@@ -104,10 +108,10 @@
 /*************************************************************************
 variables defines and enums for the small MC-Statemachine
 **************************************************************************/
-enum MC_states{SOLENOID_IDLE=0,SOLENOID_BUSY};
+enum MC_states {SOLENOID_IDLE=0,SOLENOID_BUSY};
 enum MC_states MC_State = SOLENOID_IDLE;
 
-enum MC_events{NO_EVENT = 0,SOLENOID_IS_ON,SOLENOID_IS_OFF,ACTIVATE_SOLENOID};
+enum MC_events {NO_EVENT = 0,SOLENOID_IS_ON,SOLENOID_IS_OFF,ACTIVATE_SOLENOID};
 enum MC_events MC_Event = NO_EVENT;
 
 
@@ -115,7 +119,7 @@ volatile uint8_t    mc_solenoid_status=0;
 volatile uint16_t   mc_solenoid_off_timer = 0, mc_solenoid_on_timer = 0;
 #define TIMER0_RELOAD  67//(UINT8_MAX-(F_CPU / 64 / 1000)) // should be 67
 
-    void
+void
 MC_Catcher_Init(void)
 {
     // GetFullStatus1 to reset the errors
@@ -160,7 +164,7 @@ Purpose:  initialize the
 Input:    enum COLOUR
 Returns:  none
 **************************************************************************/
-    void
+void
 MC_Catcher_Set_Position(enum COLOUR new_position)
 {
     int16_t position_difference_cnt;
@@ -170,7 +174,7 @@ MC_Catcher_Set_Position(enum COLOUR new_position)
         //new_position %= 9;
         // get differnce to destination
         position_difference_cnt =
-        mc_catcher_position_table[(uint8_t)new_position] - mc_catcher_position_table[mc_catcher_position_index];
+            mc_catcher_position_table[(uint8_t)new_position] - mc_catcher_position_table[mc_catcher_position_index];
         // decide which way to go (of course the shortest one)
         if (position_difference_cnt > 1800)
         {
@@ -210,11 +214,11 @@ Purpose:  get motion status
 Input:    none
 Returns:  1 if catcher is idle,0 else
 **************************************************************************/
-    uint8_t
+uint8_t
 MC_Is_Catcher_Idle(void)
 {
-        if(TMC222_GetMotionStatus(&mc_catcher_status,CATCHER_ADDRESS))return 0;
-        else return 1;
+    if(TMC222_GetMotionStatus(&mc_catcher_status,CATCHER_ADDRESS))return 0;
+    else return 1;
 }
 
 
@@ -226,7 +230,7 @@ Purpose:  Sets working parameters of the TMC222 for the catcher stepper.
 Input:    none
 Returns:  error
 **************************************************************************/
-    void
+void
 MC_Conveyor_Init(void)
 {
     // GetFullStatus1 to reset the errors
@@ -269,7 +273,7 @@ Purpose:  used to move the conveyor back or forward (in steps of 18°)
 Input:    none
 Returns:  enum COLOUR
 **************************************************************************/
-    void
+void
 MC_Conveyor_Set_Position(int8_t step)
 {
     // wait until the stepper is ready with last job
@@ -286,11 +290,11 @@ Purpose:  get motion status
 Input:    none
 Returns:  1 if conveyor is idle, 0 else
 **************************************************************************/
-    uint8_t
+uint8_t
 MC_Is_Conveyor_Idle(void)
 {
-        if(TMC222_GetMotionStatus(&mc_conveyor_status,CONVEYOR_ADDRESS))return 0;
-        else return 1;
+    if(TMC222_GetMotionStatus(&mc_conveyor_status,CONVEYOR_ADDRESS))return 0;
+    else return 1;
 }
 
 /*************************************************************************
@@ -299,7 +303,7 @@ Purpose:  switch on the solenoid of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-     void
+void
 MC_Solenoid_On(void)
 {
     register uint8_t temp;
@@ -313,7 +317,7 @@ Purpose:  switch off the solenoid of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-     void
+void
 MC_Solenoid_Off(void)
 {
     register uint8_t temp;
@@ -327,7 +331,7 @@ Purpose:  switch on the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-     void
+void
 MC_Vibrator_On(void)
 {
     register uint8_t temp;
@@ -341,7 +345,7 @@ Purpose:  switch off the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-     void
+void
 MC_Vibrator_Off(void)
 {
     register uint8_t temp;
@@ -356,7 +360,7 @@ Purpose:  switch off the vibrator of the smartie silo
 Input:    none
 Returns:  none
 **************************************************************************/
-    void
+void
 MC_Eject_Smartie(void)
 {
     MC_Event = ACTIVATE_SOLENOID;
@@ -367,7 +371,7 @@ Purpose:  returns 1 if the Solenoid is activ for at least MC_SOLENOID_ON TIME
 Input:    none
 Returns:  1 if smartie should lie in the chamber of the conveyor
 **************************************************************************/
-    uint8_t
+uint8_t
 MC_Is_Smartie_Ejected(void)
 {
     if(MC_State == SOLENOID_IDLE) return 1;
@@ -379,7 +383,7 @@ ISR_Init:   MC_Timer_0Init()
 Purpose:    Initialisation of the timer0 interrupt that should occour
             every ms. Used for non blocking delays!!
 **************************************************************************/
-    void
+void
 MC_Timer0_Init(void)
 {
     TCCR0 = 3;              //Set prescaler to 64
@@ -415,34 +419,34 @@ ISR(TIMER0_OVF_vect)
         }
     }
 }
-    void
+void
 MC_FSM_Execute(void)
 {
     switch(MC_State)
     {
-        case SOLENOID_IDLE:
-            if(MC_Event == ACTIVATE_SOLENOID)
-            {
-                MC_Solenoid_On();
-                mc_solenoid_on_timer = MC_SOLENOID_ON_TIME;
-                MC_Event = NO_EVENT;
-                MC_State = SOLENOID_BUSY;
-            }
-            break;
-        case SOLENOID_BUSY:
-            if(MC_Event == SOLENOID_IS_ON)
-            {
-                MC_Solenoid_Off();
-                mc_solenoid_off_timer = MC_SOLENOID_OFF_TIME;
-                MC_Event = NO_EVENT;
-                MC_State = SOLENOID_BUSY;
-            }
-            else if(MC_Event == SOLENOID_IS_OFF)
-            {
-                MC_Event = NO_EVENT;
-                MC_State = SOLENOID_IDLE;
-            }
-            break;
+    case SOLENOID_IDLE:
+        if(MC_Event == ACTIVATE_SOLENOID)
+        {
+            MC_Solenoid_On();
+            mc_solenoid_on_timer = MC_SOLENOID_ON_TIME;
+            MC_Event = NO_EVENT;
+            MC_State = SOLENOID_BUSY;
+        }
+        break;
+    case SOLENOID_BUSY:
+        if(MC_Event == SOLENOID_IS_ON)
+        {
+            MC_Solenoid_Off();
+            mc_solenoid_off_timer = MC_SOLENOID_OFF_TIME;
+            MC_Event = NO_EVENT;
+            MC_State = SOLENOID_BUSY;
+        }
+        else if(MC_Event == SOLENOID_IS_OFF)
+        {
+            MC_Event = NO_EVENT;
+            MC_State = SOLENOID_IDLE;
+        }
+        break;
     }
 }
 
