@@ -30,6 +30,7 @@
 #define debug   1
 #define RGBW    1
 
+/*
 rgbw_t sm_color_table[COLOR_MAX] =
 {
     {80,80,60,90},      //none
@@ -40,8 +41,22 @@ rgbw_t sm_color_table[COLOR_MAX] =
     {245,325,282,353},  //blue
     {209,230,228,283},  //violett
     {296,188,182,285},  //pink
-    {219,147,109,203}
-};  //brown
+    {219,147,109,203}   //brown
+};
+*/
+rgbw_t sm_color_table[COLOR_MAX] =
+{
+    {52,57,46,66},
+{351,137,97,247},
+{408,219,137,325},
+{421,376,169,421},
+{247,319,164,307},
+{279,377,374,423},
+{211,197,212,265},
+{350,198,204,321},
+{212,142,94,191}
+};
+
 
 const rgbw_t EEMEM sm_color_table_ee[COLOR_MAX];
 
@@ -50,9 +65,8 @@ rgbw_t sm_color_avarage_sum;
 
 
 
-
-/********** SM_Color_Attach *********************************************
-Function:   SM_Color_Attach()
+/********** SM_Colour_Attach *********************************************
+Function:   SM_Colour_Attach()
 Purpose:    Call this function to get the nearest color of the refernce
             respective the actual values in the p_smartie_color....
 Input:      pointer to Sensor_Data_t

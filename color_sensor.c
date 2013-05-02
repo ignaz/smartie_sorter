@@ -237,26 +237,40 @@ Returns:    none
 void
 CS_Color_Average_Get(ADJD_S311_Data_t* p_smartie_color)
 {
-    ADJD_S311_Data_t color_data_temp;
+    ADJD_S311_Data_t color_data_sum= {0},color_data_temp;
     uint8_t ui8_tmp;
     //switch on LED
     TLC59116_GRP_PWM_Set(0xFF);
-    _delay_ms(2);
+    _delay_ms(200);
+    _delay_ms(200);
+    _delay_ms(200);
+
 
     for (ui8_tmp = 0; ui8_tmp<CS_MEASURE_CNTS; ui8_tmp++)
     {
         ADJD_S311_Data_Get(&color_data_temp);
-        p_smartie_color->Red    += color_data_temp.Red;
-        p_smartie_color->Green  += color_data_temp.Green;
-        p_smartie_color->Blue   += color_data_temp.Blue;
-        p_smartie_color->Clear  += color_data_temp.Clear;
+        color_data_sum.Red    += color_data_temp.Red;
+        color_data_sum.Green  += color_data_temp.Green;
+        color_data_sum.Blue   += color_data_temp.Blue;
+        color_data_sum.Clear  += color_data_temp.Clear;
     }
-    p_smartie_color->Red    >>= CS_MEASURE_EXP;
-    p_smartie_color->Green  >>= CS_MEASURE_EXP;
-    p_smartie_color->Blue   >>= CS_MEASURE_EXP;
-    p_smartie_color->Clear  >>= CS_MEASURE_EXP;
+    p_smartie_color->Red    = color_data_sum.Red >> CS_MEASURE_EXP;
+    p_smartie_color->Green  = color_data_sum.Green >> CS_MEASURE_EXP;
+    p_smartie_color->Blue   = color_data_sum.Blue >> CS_MEASURE_EXP;
+    p_smartie_color->Clear  = color_data_sum.Clear >> CS_MEASURE_EXP;
 
-    _delay_ms(2);
+#if CS_DEBUG
+    uart_puts_P("\nred\tgreen\tblue\tclear\n:");
+    uart_put_uint16((uint16_t)p_smartie_color->Red);
+    uart_puts_P("\t:");
+    uart_put_uint16((uint16_t)p_smartie_color->Green);
+    uart_puts_P("\t:");
+    uart_put_uint16((uint16_t)p_smartie_color->Blue);
+    uart_puts_P("\t:");
+    uart_put_uint16((uint16_t)p_smartie_color->Clear);
+#endif
+
+    _delay_ms(10);
 
     //switch off LED
     TLC59116_GRP_PWM_Set(0);

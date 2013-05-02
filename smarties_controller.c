@@ -158,8 +158,8 @@ main ( void )
             break;
 
         case 'd':
-            uart_put_uint16(cs_cnt++);
-            uart_putc(';');
+            //uart_put_uint16(cs_cnt++);
+            uart_putc('{');
             CS_Color_Average_Get(&cs_data);
             uart_put_uint16(cs_data.Red);
             uart_putc(';');
@@ -168,6 +168,7 @@ main ( void )
             uart_put_uint16(cs_data.Blue);
             uart_putc(';');
             uart_put_uint16(cs_data.Clear);
+            uart_putc('}');
             uart_putc('\n');
             break;
 
